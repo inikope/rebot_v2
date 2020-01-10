@@ -94,8 +94,6 @@ app.get('/', (req, res) => {
             console.log(data);
             return PostPage.map(post => post.graphql.shortcode_media)
         })
-      .then(images => images.map(img => img.display_url))
-      .then(console.log)
     }
 
   // event handler
