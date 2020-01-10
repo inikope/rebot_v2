@@ -89,10 +89,16 @@ app.get('/', (req, res) => {
 
     // Foto Vid IG
     function instamedurl(token, igid){
-        instaDown(igid).then(data => {
+        const p1 = instaDown(igid).then(data => {
             const { entry_data: { PostPage } } = data;
             console.log(data);
             return PostPage.map(post => post.graphql.shortcode_media)
+        })
+        Promise.all([p1]).then(function(values){
+            console.log(values[0][0]);
+            return client.replyMessage(token, {
+                type: "image", originalContentUrl: values[0][0], previewImageUrl: values[0][0]
+            });
         })
     }
 
